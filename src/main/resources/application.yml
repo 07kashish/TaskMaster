@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: TaskMaster
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/taskmaster?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+app:
+  jwt:
+    # Base64 encoded 32+ byte key. Replace for production.
+    access-secret: ${JWT_ACCESS_SECRET:VGhpc0lzQVNlY3VyZUFjY2Vzc1Rva2VuS2V5Rm9yRGV2ZWxvcG1lbnQxMjM0NQ==}
+    access-expiry-seconds: ${JWT_ACCESS_EXPIRY_SECONDS:900}
+    refresh-expiry-seconds: ${JWT_REFRESH_EXPIRY_SECONDS:1209600}
+  upload:
+    base-dir: ${UPLOAD_BASE_DIR:uploads}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
